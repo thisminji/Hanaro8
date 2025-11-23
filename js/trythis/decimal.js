@@ -14,3 +14,8 @@ for (let n=1; n<=10; n++){
     console.log(`${n}\t${r.toFixed(3)}`);
 }
 
+//P34
+//getDay() 해당 날짜 숫자 반환
+const WEEK_NAMES = '일월화수목금토';
+const today = new Date();
+console.log(`오늘은 ${WEEK_NAMES[today.getDay()]}요일입니다.`);
