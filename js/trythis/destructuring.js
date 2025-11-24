@@ -32,3 +32,9 @@ const arr = [[{ id: 1 }], [{ id: 2 }, { id: 3 }]];
 // { id: id1 }는 객체의 id 값을 id1이라는 변수에 담아라 - 리네임
 const [[{ id: id1 }], [{ id: id2 }, { id: id3 }]] = arr;
 console.log(id1, id2, id3); // 1 2 3
+
+//P58
+const ar = [1, 2];
+//swap
+[ar[0],ar[1]]=[ar[1],ar[0]];
+console.log(ar);
