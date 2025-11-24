@@ -25,3 +25,10 @@ const lee = { id: 2, name: 'Lee' };
 
 f1(hong); f2(hong); // ⇒ 1 'Hong'
 f1(lee); f2(lee);  // ⇒ 2 'Lee'
+
+//P56
+const arr = [[{ id: 1 }], [{ id: 2 }, { id: 3 }]];
+// 바깥 대괄호는 arr의 바깥 배열
+// { id: id1 }는 객체의 id 값을 id1이라는 변수에 담아라 - 리네임
+const [[{ id: id1 }], [{ id: id2 }, { id: id3 }]] = arr;
+console.log(id1, id2, id3); // 1 2 3
