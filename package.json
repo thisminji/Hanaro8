@@ -1,0 +1,13 @@
+{
+  "name": "hanaro8",
+  "private": true,
+  "workspaces": ["jtest", "ts/vtest"],
+  "scripts": {
+    "dev": "pnpm --filter vtest dev",
+    "dev:vtest": "pnpm --filter vtest dev",
+    "build:vtest": "pnpm --filter vtest build",
+    "test:vitest": "pnpm --filter vtest test",
+    "test:jtest": "pnpm --filter jtest test",
+    "test": "pnpm -r test"
+  }
+}
