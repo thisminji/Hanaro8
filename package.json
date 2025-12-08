@@ -1,5 +1,5 @@
 {
-  "name": "hanaro8",
+  "name": "hanaro8-root",
   "private": true,
   "workspaces": ["jtest", "ts/vtest"],
   "scripts": {

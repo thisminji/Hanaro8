@@ -6,20 +6,19 @@ grant all privileges on schooldb.* to school@'%';
 
 use schooldb;
 
-create table Student (
-  id int unsigned auto_increment not null,
-  createdate timestamp default current_timestamp,
-  updatedate timestamp default current_timestamp on update current_timestamp,
-  name varchar(15) not null,
-  birthdt date not null,
-  major tinyint unsigned not null,
-  email varchar(255) not null,
-  mobile varchar(11) not null,
-  gender bit not null default 0 comment '성별(0: 남, 1:여)',
-  graduatedat varchar(10) null,
-  
-  primary key (id),
-  unique key unique_Student_email (email)
+CREATE TABLE Student (
+    id INT UNSIGNED AUTO_INCREMENT NOT NULL,
+    createdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updatedate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    name VARCHAR(15) NOT NULL,
+    birthdt DATE NOT NULL,
+    major TINYINT UNSIGNED NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    mobile VARCHAR(11) NOT NULL,
+    gender BIT NOT NULL DEFAULT 0 COMMENT '성별(0: 남, 1:여)',
+    graduatedat VARCHAR(10) NULL,
+    PRIMARY KEY (id),
+    UNIQUE KEY unique_Student_email (email)
 );
 
 show create table Student;
@@ -35,8 +34,10 @@ CREATE TABLE `Student` (
   `gender` bit(1) NOT NULL DEFAULT b'0' COMMENT '성별(0: 남, 1:여)',
   `graduatedat` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `unique_Student_email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  UNIQUE KEY `unique_Student_email` (`email`),
+  KEY `fk_Student_Major` (`major`),
+  CONSTRAINT `student_ibfk_1` FOREIGN KEY (`major`) REFERENCES `Major` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 create table Major(
   id tinyint unsigned auto_increment primary key,
@@ -53,7 +54,20 @@ alter table Student add constraint foreign key fk_Student_Major (major)
     references Major(id);
     
 select * from Student where major not in (select id from Major);
-select * from Major;
+select * from schooldb.Major;
 update Student set major = 1 where id = 1; -- Hong
 
 show index from Student;
+
+show create table Enroll;
+
+CREATE TABLE `Enroll` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `subject` smallint unsigned NOT NULL,
+  `student` int unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uniq_Enroll_subject_student` (`subject`,`student`),
+  KEY `fk_Enroll_Student` (`student`),
+  CONSTRAINT `enroll_ibfk_1` FOREIGN KEY (`subject`) REFERENCES `Subject` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `enroll_ibfk_2` FOREIGN KEY (`student`) REFERENCES `Student` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
