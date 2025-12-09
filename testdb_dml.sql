@@ -21,7 +21,7 @@ select e.dept, count(*), max(d.dname) from Emp e join Dept d on e.dept = d.id
  group by e.dept;
  
 -- 부서 별 급여 평균이 전체 평균보다 높은 부서의 id와 평균 급여를 구하시오.
-select avg(salary) from Emp;
+select avg(salary) from Esp_empsb_deptidmp;
 select dept, avg(salary) from Emp group by dept;
 
 select dept, avg(salary) avgsal from Emp
