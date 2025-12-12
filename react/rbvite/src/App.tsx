@@ -3,7 +3,6 @@ import './App.css';
 import Hello from './components/Hello';
 import My from './components/My';
 
-
 type Item = {
   id: number;
   name: string;
@@ -15,10 +14,11 @@ export type Session = {
   loginUser: LoginUser | null;
   cart: Item[];
 };
+export type LoginFunction = (name: string, age: number) => void;
 
 const DefaultSession = {
-  // loginUser: null,
-  loginUser: { id: 1, name: 'Hong', age: 33 },
+  loginUser: null,
+  // loginUser: { id: 1, name: 'Hong', age: 33 },
   cart: [
     { id: 100, name: '라면', price: 3000 },
     { id: 101, name: '컵라면', price: 2000 },
@@ -30,19 +30,28 @@ function App() {
   const [count, setCount] = useState(0);
   const [session, setSession] = useState<Session>(DefaultSession);
 
+  // plusCount(100)
+  const plusCount = () => setCount((prevCount) => prevCount + 1);
+
   const logout = () => {
     // session.loginUser = null; // fail!!
     setSession({ ...session, loginUser: null });
   };
 
+  const login: LoginFunction = (name, age) => {
+    if (!name || !age) return alert('Input Name and Age, plz!');
+
+    setSession({ ...session, loginUser: { id: 1, name, age } });
+  };
+
   return (
     <div className='grid place-items-center h-screen'>
       <h1 className='text-3xl'>count: {count}</h1>
-      <My session={session} logout={logout} />
+      <My session={session} logout={logout} login={login} />
       <Hello
         name={session.loginUser?.name}
         age={session.loginUser?.age}
-        setCount={setCount}
+        plusCount={plusCount}
       >
         반갑습니다
       </Hello>
