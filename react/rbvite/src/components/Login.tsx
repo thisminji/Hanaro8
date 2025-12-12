@@ -9,6 +9,7 @@ export default function Login({ login }: Props) {
   const [name, setName] = useState('');
   const [age, setAge] = useState(0);
 
+
   return (
     <div className='border border-red-300 p-3 rounded-lg'>
       <h1 className='text-2xl text-center font-medium'>Login</h1>
