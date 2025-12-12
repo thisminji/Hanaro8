@@ -90,6 +90,8 @@ export default function My({
         <LabelInput type='number' ref={priceRef} placeholder='price...' />
         <Button type='submit' className='text-blue-500'>
           {/* <SaveIcon /> */}
+
+          
           <FilePlus2Icon />
         </Button>
       </form>
