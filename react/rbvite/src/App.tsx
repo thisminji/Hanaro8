@@ -35,7 +35,7 @@ function App() {
   const plusCount = () => setCount((prevCount) => prevCount + 1);
 
   const logout = () => {
-    session.loginUser = null; // fail!!
+    // session.loginUser = null; // fail!!
     setSession({ ...session, loginUser: null });
   };
 
@@ -43,33 +43,41 @@ function App() {
     if (!name || !age) return alert('Input Name and Age, plz!');
 
     setSession({ ...session, loginUser: { id: 1, name, age } });
-
-    
   };
 
-  //cart에서 상품 삭제하는ㄴ 함수 (id 기준)
-  const removeCart = (id: number) => {
-    if(!confirm('Are u sure?')) return;
-    // setSession(()=>({
-    //   //.이전 session을 복사해두고 
-    //   //cart만 내가 삭제하고 싶은 id와 다른 것만 남기겠다!
-    //   ...session, cart: session.cart.filter((item)=>item.id!==id),
-    // }))
+  const removeItem = (id: number) => {
+    if (!confirm('Are u sure?')) return;
 
-    //filter는 새로운 배열을 주기에 이렇게 하는 게 더 좋아욤!
-    setSession({...session,
-      cart: session.cart.filter((item)=>item.id !==id),
+    // setSession({
+    //   ...session,
+    //   cart: [...session.cart.filter((item) => item.id !== id)],
+    // });
+
+    setSession({
+      ...session,
+      cart: session.cart.filter((item) => item.id !== id),
     });
+  };
 
+  const addItem = (name: string, price: number) => {
+    const newItem = {
+      id: Math.max(...session.cart.map((item) => item.id), 0) + 1,
+      name,
+      price,
+    };
+    setSession({ ...session, cart: [...session.cart, newItem] });
   };
 
   return (
     <div className='grid place-items-center h-screen'>
       <h1 className='text-3xl'>count: {count}</h1>
-      <My session={session} 
-          logout={logout}
-          login={login}
-          removeCart={removeCart} />
+      <My
+        session={session}
+        logout={logout}
+        login={login}
+        removeItem={removeItem}
+        addItem={addItem}
+      />
       <Hello
         name={session.loginUser?.name}
         age={session.loginUser?.age}

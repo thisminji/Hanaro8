@@ -2,19 +2,18 @@ import type { PropsWithChildren } from 'react';
 
 type Prop = {
   onClick?: () => void;
+  type?: 'reset' | 'submit';
   className: string;
 };
 
 export default function Button({
   onClick,
+  type,
   className,
   children,
 }: PropsWithChildren<Prop>) {
   return (
-    <button
-      className={`border py-1 px-2 rounded-md cursor-pointer ${className}`}
-      onClick={onClick}
-    >
+    <button type={type} className={`${className}`} onClick={onClick}>
       {children}
     </button>
   );
