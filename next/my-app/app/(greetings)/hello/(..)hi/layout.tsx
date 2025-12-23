@@ -6,7 +6,8 @@ export default function HelloHiLayout({ children }: PropsWithChildren) {
   return (
     <div className="border-2 border-green-300 text-center">
       <h1 className="">Hello/(..)hi Layout</h1>
-      <div className="flex gap-3 justify-center">
+      <div className="flex justify-center gap-3">
+        {" "}
         {TIMES.map((time) => (
           <Link key={time} href={`/hi/${time}`}>
             {time}
