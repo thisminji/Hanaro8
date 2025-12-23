@@ -1,3 +1,3 @@
 export default function InterceptPage() {
-  return "InterceptPage";
+  return 'InterceptPage';
 }

@@ -1,7 +1,7 @@
-import Link from "next/link";
-import type { PropsWithChildren } from "react";
+import Link from 'next/link';
+import type { PropsWithChildren } from 'react';
 
-const TIMES = ["morning", "afternoon", "evening"];
+const TIMES = ['morning', 'afternoon', 'evening'];
 
 export default function HiLayout({ children }: PropsWithChildren) {
   return (

@@ -1,3 +1,3 @@
 export default function LoginPage() {
-  return "@Login/aaa";
+  return '@Login/aaa';
 }

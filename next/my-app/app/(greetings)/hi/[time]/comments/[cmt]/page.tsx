@@ -1,9 +1,9 @@
-import { use } from "react";
-import { TIMES } from "../../../constants";
+import { use } from 'react';
+import { TIMES } from '../../../constants';
 
 export const generateStaticParams = () =>
   TIMES.flatMap((time, i) =>
-    [1, 2, 3].map((cmt) => ({ time, cmt: String(i * 3 + cmt) }))
+    [1, 2, 3].map((cmt) => ({ time, cmt: String(i * 3 + cmt) })),
   );
 
 export default function CommentDetail({

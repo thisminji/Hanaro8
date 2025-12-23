@@ -1,5 +1,5 @@
-import Image from "next/image";
-import Modal from "@/components/Modal";
+import Image from 'next/image';
+import Modal from '@/components/Modal';
 
 export default function Page() {
   return (

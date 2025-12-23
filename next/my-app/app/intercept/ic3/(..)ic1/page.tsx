@@ -1,3 +1,3 @@
 export default function Page() {
-  return "Ic3/(..)Ic1";
+  return 'Ic3/(..)Ic1';
 }

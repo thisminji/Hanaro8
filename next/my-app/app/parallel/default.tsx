@@ -1,3 +1,3 @@
 export default function ProfileDefaultPage() {
-  return "Parallel/default";
+  return 'Parallel/default';
 }

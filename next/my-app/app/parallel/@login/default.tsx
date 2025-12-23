@@ -1,3 +1,3 @@
 export default function ProfileDefaultPage() {
-  return "@Login/default";
+  return '@Login/default';
 }

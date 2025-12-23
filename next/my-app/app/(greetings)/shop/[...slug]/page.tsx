@@ -1,4 +1,4 @@
-import { use } from "react";
+import { use } from 'react';
 
 type Props = {
   params: Promise<{ slug: number[] | string[] }>;

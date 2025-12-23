@@ -1,3 +1,3 @@
 export default function ParallelPage() {
-  return "ParallelPage";
+  return 'ParallelPage';
 }
