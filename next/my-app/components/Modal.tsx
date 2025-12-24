@@ -1,6 +1,6 @@
-"use client";
-import { useRouter } from "next/navigation";
-import { useEffect, useRef } from "react";
+'use client';
+import { useRouter } from 'next/navigation';
+import { useEffect, useRef } from 'react';
 
 export default function Modal({ children }: { children: React.ReactNode }) {
   const overlay = useRef<HTMLDivElement>(null);
@@ -15,15 +15,15 @@ export default function Modal({ children }: { children: React.ReactNode }) {
     }
   };
   const onKeyDown = (e: KeyboardEvent) => {
-    if (e.key === "Escape") onDismiss();
+    if (e.key === 'Escape') onDismiss();
   };
 
   useEffect(() => {
-    if (overlay.current) overlay.current.addEventListener("click", onClick);
-    document.addEventListener("keydown", onKeyDown);
+    if (overlay.current) overlay.current.addEventListener('click', onClick);
+    document.addEventListener('keydown', onKeyDown);
     return () => {
-      overlay.current?.removeEventListener("click", onClick);
-      document.removeEventListener("keydown", onKeyDown);
+      overlay.current?.removeEventListener('click', onClick);
+      document.removeEventListener('keydown', onKeyDown);
     };
   }, [onKeyDown, overlay.current]);
 

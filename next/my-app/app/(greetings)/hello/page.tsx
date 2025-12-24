@@ -1,8 +1,9 @@
-'use client';
+"use client";
 
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { Suspense } from 'react';
-import SayHello from './SayHello';
+import type { Route } from "next";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { Suspense } from "react";
+import SayHello from "./SayHello";
 
 export default function HelloPage() {
   const pathname = usePathname();
@@ -13,7 +14,7 @@ export default function HelloPage() {
     <>
       <h1>Hello Page: {pathname}</h1>
       <div>
-        <SayHello name={'Next'} />
+        <SayHello name={"Next"} />
 
         <Suspense fallback={<h1>...</h1>}>
           <SearchParamId />
@@ -28,14 +29,14 @@ function SearchParamId() {
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams.toString());
 
-  const id = searchParams.get('id');
+  const id = searchParams.get("id");
   // const name = searchParams.get('name');
 
   const router = useRouter();
 
   const make200 = () => {
-    params.set('id', `200`);
-    router.push(`${pathname}?${params.toString()}`);
+    params.set("id", `200`);
+    router.push(`${pathname}?${params.toString()}` as Route);
     // router.push('/');
   };
 
