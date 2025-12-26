@@ -1,8 +1,8 @@
-import { use } from "react";
-import { TIMES } from "../constants";
+import { use } from 'react';
+import { TIMES } from '../constants';
 
 type Props = {
-  params: Promise<{ time: "morning" | "afternoon" | "evening" }>;
+  params: Promise<{ time: 'morning' | 'afternoon' | 'evening' }>;
 };
 
 // export async function generateStaticParams() {

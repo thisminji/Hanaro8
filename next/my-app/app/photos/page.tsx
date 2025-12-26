@@ -1,7 +1,7 @@
-"use cache";
-import { cacheLife } from "next/cache";
-import Image from "next/image";
-import Link from "next/link";
+'use cache';
+import { cacheLife } from 'next/cache';
+import Image from 'next/image';
+import Link from 'next/link';
 
 export type Photo = {
   id: string;
@@ -15,7 +15,7 @@ export type Photo = {
 
 const getPhotos = async (n: number = 20): Promise<Photo[]> =>
   fetch(`https://picsum.photos/v2/list?limit=${n}`, {
-    cache: "force-cache",
+    cache: 'force-cache',
   }).then((res) => res.json());
 
 export default async function Photos() {
