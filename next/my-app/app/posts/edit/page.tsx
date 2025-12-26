@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { ChevronDownIcon, ChevronUpIcon } from "lucide-react";
-import { useReducer, useState } from "react";
-import { Button } from "@/components/ui/button";
+import { ChevronDownIcon, ChevronUpIcon } from 'lucide-react';
+import { useReducer, useState } from 'react';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,21 +10,21 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { savePost } from "./posts.action";
+} from '@/components/ui/dropdown-menu';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { savePost } from './posts.action';
 
 type Folder = {
   id: number;
   name: string;
-  type?: "text" | "file";
+  type?: 'text' | 'file';
 };
 
 const FOLDERS: Folder[] = [
-  { id: 1, name: "공지사항" },
-  { id: 2, name: "자유게시판" },
-  { id: 3, name: "앨범", type: "file" },
+  { id: 1, name: '공지사항' },
+  { id: 2, name: '자유게시판' },
+  { id: 3, name: '앨범', type: 'file' },
 ];
 
 export default function PostEdit() {
@@ -38,7 +38,7 @@ export default function PostEdit() {
         <div className="flex gap-2">
           <DropdownMenu onOpenChange={toggleOpen}>
             <DropdownMenuTrigger asChild>
-              <Button variant={"outline"}>
+              <Button variant={'outline'}>
                 {folder.name}
                 {isOpen ? <ChevronUpIcon /> : <ChevronDownIcon />}
               </Button>
@@ -60,7 +60,7 @@ export default function PostEdit() {
           <Input type="text" name="title" placeholder="title..." />
         </div>
 
-        {folder.type === "file" ? (
+        {folder.type === 'file' ? (
           <Input
             type="file"
             name="filex"
@@ -71,13 +71,13 @@ export default function PostEdit() {
         )}
 
         <div className="flex justify-around">
-          <Button type="reset" variant={"secondary"}>
+          <Button type="reset" variant={'secondary'}>
             취소
           </Button>
-          <Button type="button" variant={"destructive"}>
+          <Button type="button" variant={'destructive'}>
             삭제
           </Button>
-          <Button type="submit" variant={"apply"}>
+          <Button type="submit" variant={'apply'}>
             저장
           </Button>
         </div>
