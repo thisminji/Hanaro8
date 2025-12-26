@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
 // import Image from 'next/image';
 // import d from '@/public/profile_dummy.png';
-import { useIsMobile } from "@/hooks/use-mobile";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { Button } from "./ui/button";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
-import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import { useIsMobile } from '@/hooks/use-mobile';
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
+import { Button } from './ui/button';
+import { HoverCard, HoverCardContent, HoverCardTrigger } from './ui/hover-card';
+import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 
-const DummyProfileImage = "/profile_dummy.png";
+const DummyProfileImage = '/profile_dummy.png';
 
 export default function UserProfile() {
   const isMobile = useIsMobile();
@@ -32,7 +32,7 @@ export default function UserProfile() {
           <Avatar>
             <AvatarImage src={isMobile ? DummyProfileImage : undefined} />
             <AvatarFallback className="text-xl uppercase">
-              {"guest".substring(0, 2)}
+              {'guest'.substring(0, 2)}
             </AvatarFallback>
           </Avatar>
         </Button>

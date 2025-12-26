@@ -1,8 +1,9 @@
-'use client';
+"use client";
 
-import { ChevronDownIcon, ChevronUpIcon } from 'lucide-react';
-import { useReducer, useState } from 'react';
-import { Button } from '@/components/ui/button';
+import { ChevronDownIcon, ChevronUpIcon } from "lucide-react";
+import { useActionState, useReducer, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,35 +11,55 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { savePost } from './posts.action';
+} from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
+import { Textarea } from "@/components/ui/textarea";
+import { type Post, type PostError, savePost } from "./posts.action";
 
 type Folder = {
   id: number;
   name: string;
-  type?: 'text' | 'file';
+  type?: "text" | "file";
 };
 
 const FOLDERS: Folder[] = [
-  { id: 1, name: '공지사항' },
-  { id: 2, name: '자유게시판' },
-  { id: 3, name: '앨범', type: 'file' },
+  { id: 1, name: "공지사항" },
+  { id: 2, name: "자유게시판" },
+  { id: 3, name: "앨범", type: "file" },
 ];
 
 export default function PostEdit() {
   const [isOpen, toggleOpen] = useReducer((p) => !p, false);
   const [folder, setFolder] = useState<Folder>(FOLDERS[0]);
+  const [post, setPost] = useState<Partial<Post>>();
+  const [localPrivate, togglePrivate] = useReducer((p) => !p, false);
+  // const [localPublic, togglePublic] = useReducer((p) => !p, false);
+
+  const [postError, save, isPending] = useActionState(
+    async (_: PostError | undefined, formData: FormData) => {
+      formData.set("isprivate", localPrivate ? "on" : "");
+      const [err, data] = await savePost(formData);
+      if (err) {
+        setPost(err.data);
+        return err;
+      }
+
+      setPost(data);
+      console.log("savedData>>", data);
+    },
+    undefined
+  );
 
   return (
     <>
       <h1 className="text-center font-semibold text-2xl">게시글 작성</h1>
-      <form action={savePost} className="space-y-3">
+      <form action={save} className="space-y-3">
         <div className="flex gap-2">
           <DropdownMenu onOpenChange={toggleOpen}>
             <DropdownMenuTrigger asChild>
-              <Button variant={'outline'}>
+              <Button variant={"outline"}>
                 {folder.name}
                 {isOpen ? <ChevronUpIcon /> : <ChevronDownIcon />}
               </Button>
@@ -56,29 +77,59 @@ export default function PostEdit() {
               ))}
             </DropdownMenuContent>
           </DropdownMenu>
+          <Input type="hidden" name="folder" defaultValue={folder.id} />
 
-          <Input type="text" name="title" placeholder="title..." />
+          <Input
+            type="text"
+            name="title"
+            defaultValue={post?.title}
+            placeholder="title..."
+          />
         </div>
 
-        {folder.type === 'file' ? (
+        <div className="grid grid-cols-2 gap-2">
+          <Label htmlFor="isPrivate">
+            <Checkbox
+              id="isPrivate"
+              name="isprivate"
+              checked={localPrivate}
+              onClick={togglePrivate}
+              className="data-[state=checked]:bg-blue-500"
+            />
+            비공개 글 {post?.isprivate ? "True" : "False"}::
+            {localPrivate ? "True" : "False"}
+          </Label>
+          <Label htmlFor="isPublic">
+            <Switch id="isPublic" name="ispublic" />
+            홈에 공개
+          </Label>
+        </div>
+
+        {folder.type === "file" ? (
           <Input
             type="file"
             name="filex"
             className="cursor-pointer hover:bg-muted"
           />
         ) : (
-          <Textarea name="content" placeholder="content..." />
+          <Textarea
+            name="content"
+            defaultValue={post?.content}
+            placeholder="content..."
+          />
         )}
 
+        {!!postError && <span className="text-red-500">{postError.error}</span>}
+
         <div className="flex justify-around">
-          <Button type="reset" variant={'secondary'}>
+          <Button type="reset" variant={"secondary"}>
             취소
           </Button>
-          <Button type="button" variant={'destructive'}>
+          <Button type="button" variant={"destructive"}>
             삭제
           </Button>
-          <Button type="submit" variant={'apply'}>
-            저장
+          <Button type="submit" variant={"apply"} disabled={isPending}>
+            저장{isPending && "..."}
           </Button>
         </div>
       </form>
