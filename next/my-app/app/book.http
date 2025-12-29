@@ -1,0 +1,18 @@
+
+@api=http://localhost:3000/api
+
+#@api 
+
+### book list
+GET {{api}}/books
+
+### add book
+POST {{api}}/books
+
+{
+    "title": "new book",
+    "writer": "minji"
+}
+
+### get a book
+GET {{api}}/books/2
