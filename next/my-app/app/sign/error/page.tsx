@@ -1,4 +1,4 @@
-import { use } from "react";
+import { use } from 'react';
 
 type Props = {
   searchParams: Promise<{ error: string }>;
