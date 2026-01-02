@@ -6,7 +6,7 @@ async function main() {
     update: {},
     create: { title: 'JS/TS' },
   });
-  console.log('🚀 ~ main ~ folder:', folder);
+  console.log('🚀 ~ folder:', folder);
 
   for (const { name, title } of data) {
     const email = `${name}@email.com`;
@@ -14,13 +14,12 @@ async function main() {
       where: { email },
       update: {},
       create: {
-        email,
         name,
-        Post: {
-          create: { folder: folder.id, title, content: title },
-        },
+        email,
+        Post: { create: { folder: folder.id, title, content: title } },
       },
     });
+    console.log('🚀 ~ rs:', rs);
   }
 }
 
