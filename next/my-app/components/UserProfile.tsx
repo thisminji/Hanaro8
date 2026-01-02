@@ -1,22 +1,22 @@
-'use client';
+"use client";
 
-import { redirect } from 'next/navigation';
-import { useSession } from 'next-auth/react';
+import { redirect } from "next/navigation";
+import type { Session } from "next-auth";
 // import Image from 'next/image';
 // import d from '@/public/profile_dummy.png';
-import { useIsMobile } from '@/hooks/use-mobile';
-import { logout } from '@/lib/sign.action';
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
-import { Button } from './ui/button';
-import { HoverCard, HoverCardContent, HoverCardTrigger } from './ui/hover-card';
-import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
+import { useIsMobile } from "@/hooks/use-mobile";
+import { logout } from "@/lib/sign.action";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Button } from "./ui/button";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 
-const DummyProfileImage = '/profile_dummy.png';
+const DummyProfileImage = "/profile_dummy.png";
 
-export default function UserProfile() {
-  const { data } = useSession();
-  console.log('🚀 ~ UserProfile - session:', data);
-  if (!data || !data.user) redirect('/sign');
+export default function UserProfile({ data }: { data: Session }) {
+  // const { data } = useSession();
+  console.log("🚀 ~ UserProfile - session:", data);
+  if (!data || !data.user) redirect("/sign");
 
   const profileImg = data.user.image || DummyProfileImage;
   const isMobile = useIsMobile();
@@ -40,7 +40,7 @@ export default function UserProfile() {
           <Avatar>
             <AvatarImage src={isMobile ? profileImg : undefined} />
             <AvatarFallback className="text-xl uppercase">
-              {'guest'.substring(0, 2)}
+              {"guest".substring(0, 2)}
             </AvatarFallback>
           </Avatar>
         </Button>
@@ -60,7 +60,7 @@ export default function UserProfile() {
               {12} Books
               {23} Marks 00 Followers
             </div>
-            <Button onClick={logout} variant={'outline'}>
+            <Button onClick={logout} variant={"outline"}>
               LogOut
             </Button>
           </div>
