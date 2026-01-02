@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 
 type Props = {
   formAction: (formData: FormData) => Promise<void>;
@@ -36,7 +36,7 @@ export function GoogleLoginButton({ formAction, isRegist }: Props) {
         />
       </svg>
       <span className="font-medium text-sm dark:text-white">
-        {isRegist ? "Regist" : "Sign"} with Google
+        {isRegist ? 'Regist' : 'Sign'} with Google
       </span>
     </Button>
   );

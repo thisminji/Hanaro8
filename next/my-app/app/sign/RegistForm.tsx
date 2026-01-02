@@ -1,34 +1,34 @@
-"use client";
+'use client';
 
-import { useSearchParams } from "next/navigation";
-import { useActionState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { regist } from "@/lib/sign.action";
+import { useSearchParams } from 'next/navigation';
+import { useActionState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { regist } from '@/lib/sign.action';
 
 export default function RegistForm() {
   const searchParams = useSearchParams();
-  const redirectTo = searchParams.get("callbackUrl") || "/hello";
+  const redirectTo = searchParams.get('callbackUrl') || '/hello';
 
   const defaultError =
-    process.env.NODE_ENV === "development"
+    process.env.NODE_ENV === 'development'
       ? {
           error: {},
           data: {
-            email: "sico@gmail.com",
-            name: "sico",
-            passwd: "1212",
-            passwd2: "1212",
+            email: 'sico@gmail.com',
+            name: 'sico',
+            passwd: '1212',
+            passwd2: '1212',
           },
         }
       : undefined;
 
   const [validError, makeRegist, isPending] = useActionState(
     regist,
-    defaultError
+    defaultError,
   );
-  if (validError) console.log("validError>>", validError);
+  if (validError) console.log('validError>>', validError);
 
   return (
     <div className="grid place-items-center">
@@ -41,7 +41,7 @@ export default function RegistForm() {
             id="email"
             name="email"
             type="email"
-            defaultValue={validError?.data.email || ""}
+            defaultValue={validError?.data.email || ''}
             placeholder="user@email.com"
             className="w-full"
           />
@@ -56,7 +56,7 @@ export default function RegistForm() {
             id="name"
             name="name"
             type="text"
-            defaultValue={validError?.data.name || ""}
+            defaultValue={validError?.data.name || ''}
             placeholder="nickname..."
             className="w-full"
           />
@@ -71,7 +71,7 @@ export default function RegistForm() {
             id="passwd"
             name="passwd"
             type="password"
-            defaultValue={validError?.data.passwd || ""}
+            defaultValue={validError?.data.passwd || ''}
             placeholder="password..."
           />
           {validError?.error.passwd && (
@@ -84,7 +84,7 @@ export default function RegistForm() {
             id="passwd2"
             name="passwd2"
             type="password"
-            defaultValue={validError?.data.passwd2 || ""}
+            defaultValue={validError?.data.passwd2 || ''}
             placeholder="password2..."
           />
           {validError?.error.passwd2 && (
@@ -106,11 +106,11 @@ export default function RegistForm() {
         </div>
 
         <div className="flex justify-center gap-5">
-          <Button variant={"outline"} type="reset">
+          <Button variant={'outline'} type="reset">
             Cancel
           </Button>
           <Button type="submit" disabled={isPending}>
-            Regist {isPending && "..."}
+            Regist {isPending && '...'}
           </Button>
         </div>
       </form>

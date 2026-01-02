@@ -1,23 +1,23 @@
-"use client";
+'use client';
 
-import { redirect, useRouter } from "next/navigation";
-import type { Session } from "next-auth";
-import { useReducer } from "react";
+import { redirect, useRouter } from 'next/navigation';
+import type { Session } from 'next-auth';
+import { useReducer } from 'react';
 // import Image from 'next/image';
 // import d from '@/public/profile_dummy.png';
-import { useIsMobile } from "@/hooks/use-mobile";
-import { logout } from "@/lib/sign.action";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { Button } from "./ui/button";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
-import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import { useIsMobile } from '@/hooks/use-mobile';
+import { logout } from '@/lib/sign.action';
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
+import { Button } from './ui/button';
+import { HoverCard, HoverCardContent, HoverCardTrigger } from './ui/hover-card';
+import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 
-const DummyProfileImage = "/profile_dummy.png";
+const DummyProfileImage = '/profile_dummy.png';
 
 export default function UserProfile({ data }: { data: Session }) {
   // const { data } = useSession();
-  console.log("🚀 ~ UserProfile - session:", data);
-  if (!data || !data.user) redirect("/sign");
+  // console.log('🚀 ~ UserProfile - session:', data);
+  if (!data || !data.user) redirect('/sign');
 
   const router = useRouter();
   const [isOpen, toggleOpen] = useReducer((p) => !p, false);
@@ -35,7 +35,7 @@ export default function UserProfile({ data }: { data: Session }) {
 
   const goToMyInfo = () => {
     toggleOpen();
-    router.push("/my");
+    router.push('/my');
   };
   return (
     <Comp.comp open={isOpen} onOpenChange={toggleOpen}>
@@ -46,9 +46,12 @@ export default function UserProfile({ data }: { data: Session }) {
           className="touch-none md:pointer-events-auto md:touch-auto"
         >
           <Avatar>
-            <AvatarImage src={isMobile ? profileImg : undefined} />
+            <AvatarImage
+              src={isMobile ? profileImg : undefined}
+              alt={data.user.name || 'guest'}
+            />
             <AvatarFallback className="text-xl uppercase">
-              {"guest".substring(0, 2)}
+              {'guest'.substring(0, 2)}
             </AvatarFallback>
           </Avatar>
         </Button>
@@ -57,7 +60,11 @@ export default function UserProfile({ data }: { data: Session }) {
         <div className="flex justify-between gap-1">
           <div className="w-20">
             <Avatar className="h-16 w-16">
-              <AvatarImage src={profileImg} className="" />
+              <AvatarImage
+                src={profileImg}
+                alt={data.user.name || 'guest'}
+                className=""
+              />
               <AvatarFallback>DP</AvatarFallback>
             </Avatar>
           </div>
@@ -68,10 +75,10 @@ export default function UserProfile({ data }: { data: Session }) {
               {12} Books
               {23} Marks 00 Followers
             </div>
-            <Button onClick={logout} variant={"outline"}>
+            <Button onClick={logout} variant={'outline'}>
               LogOut
             </Button>
-            <Button onClick={goToMyInfo} variant={"outline"} className="ml-3">
+            <Button onClick={goToMyInfo} variant={'outline'} className="ml-3">
               My Info.
             </Button>
           </div>

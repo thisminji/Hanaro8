@@ -1,26 +1,26 @@
-"use client";
+'use client';
 
-import type { Route } from "next";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useActionState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { loginEmail } from "@/lib/sign.action";
-import type { ValidError } from "@/lib/validator";
+import type { Route } from 'next';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useActionState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { loginEmail } from '@/lib/sign.action';
+import type { ValidError } from '@/lib/validator';
 
 export default function SignForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const redirectTo = searchParams.get("callbackUrl") || "/hello";
+  const redirectTo = searchParams.get('callbackUrl') || '/hello';
 
   const defaultError =
-    process.env.NODE_ENV === "development"
+    process.env.NODE_ENV === 'development'
       ? {
           error: {},
           data: {
-            email: "sico@gmail.com",
-            passwd: "1212",
+            email: 'sico@gmail.com',
+            passwd: '1212',
           },
         }
       : undefined;
@@ -28,15 +28,15 @@ export default function SignForm() {
   const [validError, login, isPending] = useActionState(
     async (_: ValidError | undefined, formData: FormData) => {
       const [err, data] = await loginEmail(formData);
-      console.log("🚀 ~ err:", err, data);
+      console.log('🚀 ~ err:', err, data);
       if (err) {
         return err as ValidError;
       }
 
-      console.log("🚀 ~ redirectTo:", redirectTo);
+      console.log('🚀 ~ redirectTo:', redirectTo);
       router.push(redirectTo as Route);
     },
-    defaultError
+    defaultError,
   );
 
   return (
@@ -50,7 +50,7 @@ export default function SignForm() {
             id="email"
             name="email"
             type="email"
-            defaultValue={validError?.data.email || ""}
+            defaultValue={validError?.data.email || ''}
             placeholder="user@email.com"
             className="w-full"
           />
@@ -65,7 +65,7 @@ export default function SignForm() {
             id="passwd"
             name="passwd"
             type="password"
-            defaultValue={validError?.data.passwd || ""}
+            defaultValue={validError?.data.passwd || ''}
             placeholder="password..."
           />
           {validError?.error.passwd && (
@@ -74,11 +74,11 @@ export default function SignForm() {
         </div>
 
         <div className="flex justify-center gap-5">
-          <Button variant={"outline"} type="reset">
+          <Button variant={'outline'} type="reset">
             Cancel
           </Button>
           <Button type="submit" disabled={isPending}>
-            LogIn{isPending && "..."}
+            LogIn{isPending && '...'}
           </Button>
         </div>
       </form>
