@@ -163,7 +163,6 @@ public class Emp {
 		}
 
 		public Emp build() {
-
 			return new Emp(this.name, this.dept, this.score);
 		}
 	}
