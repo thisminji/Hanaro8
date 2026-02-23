@@ -1,0 +1,8 @@
+@baseUrl=http://localhost:8080
+
+GET {{baseUrl}}/
+
+### hello
+GET {{baseUrl}}/hello
+
+GET {{baseUrl}}/hello-servlet?name=Hong
