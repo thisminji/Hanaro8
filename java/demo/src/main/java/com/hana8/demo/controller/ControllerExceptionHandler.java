@@ -10,6 +10,9 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.NoHandlerFoundException;
+
+import jakarta.validation.ConstraintViolationException;
 
 @RestControllerAdvice
 public class ControllerExceptionHandler {
@@ -31,6 +34,22 @@ public class ControllerExceptionHandler {
 					LinkedHashMap::new)
 			);
 		return ResponseEntity.badRequest().body(map);
+	}
+
+	@ExceptionHandler(ConstraintViolationException.class)
+	public ResponseEntity<Map<String, String>> handleViolationExceptionHandler(ConstraintViolationException e) {
+		Map<String, String> map = e.getConstraintViolations().stream().collect(
+			Collectors.toMap(v -> v.getPropertyPath().toString(),
+				v -> Objects.toString(v.getMessage(), "Violation Value!"),
+				(existing, newValue) -> existing + ", " + newValue)
+		);
+
+		return ResponseEntity.badRequest().body(map);
+	}
+
+	@ExceptionHandler(NoHandlerFoundException.class)
+	public ResponseEntity<String> handleNotFoundException(NoHandlerFoundException e) {
+		return ResponseEntity.status(404).body(e.getMessage());
 	}
 
 	@ExceptionHandler(Exception.class)
