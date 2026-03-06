@@ -12,9 +12,12 @@ import org.springframework.util.StringUtils;
 import com.hana8.demo.dto.PostDTO;
 import com.hana8.demo.dto.PostListDTO;
 import com.hana8.demo.entity.Post;
+import com.hana8.demo.entity.PostBody;
 import com.hana8.demo.entity.QPost;
+import com.hana8.demo.entity.Reply;
 import com.hana8.demo.mapper.PostMapper;
 import com.hana8.demo.repository.PostRepository;
+import com.hana8.demo.repository.ReplyRepository;
 import com.querydsl.core.BooleanBuilder;
 
 import lombok.RequiredArgsConstructor;
@@ -23,6 +26,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PostService {
 	private final PostRepository repository;
+	private final ReplyRepository replyRepository;
+
 	private final PostMapper mapper;
 
 	public List<PostDTO> getPosts(PostListDTO dto) {
@@ -35,7 +40,7 @@ public class PostService {
 			bb.and(post.title.contains(dto.getTitle()));
 
 		if (StringUtils.hasText(dto.getBody()))
-			bb.and(post.body.contains(dto.getBody()));
+			bb.and(post.body.body.contains(dto.getBody()));
 
 		if (StringUtils.hasText(dto.getWriter()))
 			bb.and(post.writer.eq(dto.getWriter()));
@@ -64,8 +69,11 @@ public class PostService {
 		return mapper.toDTO(post);
 	}
 
-	public PostDTO registPost(PostDTO post) {
-		return mapper.toDTO(repository.save(mapper.toEntity(post)));
+	public PostDTO registPost(PostDTO dto) {
+		Post savedPost = repository.save(mapper.toEntity(dto));
+		PostBody body = mapper.toEntity(dto.getBody());
+		savedPost.setBody(body);
+		return mapper.toDTO(repository.save(savedPost));
 	}
 
 	public PostDTO editPost(PostDTO post) {
@@ -73,7 +81,7 @@ public class PostService {
 			.orElseThrow(() -> new IllegalArgumentException("Post #%d is not found!".formatted(post.getId())));
 
 		oldPost.setTitle(post.getTitle());
-		oldPost.setBody(post.getBody());
+		oldPost.setBody(mapper.toEntity(post.getBody()));
 		oldPost.setWriter(post.getWriter());
 
 		return mapper.toDTO(repository.save(oldPost));
@@ -86,4 +94,11 @@ public class PostService {
 		return repository.deletePost(id);
 	}
 
+	public PostDTO getReplies(Long id) {
+		Post post = repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Post Not Found"));
+
+		List<Reply> replies = replyRepository.findAllByPost(post);
+		post.setReplies(replies);
+		return mapper.toDTO(post);
+	}
 }
