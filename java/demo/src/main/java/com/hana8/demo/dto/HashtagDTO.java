@@ -1,5 +1,6 @@
 package com.hana8.demo.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -7,16 +8,11 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
-public class ReplyDTO {
+@AllArgsConstructor
+public class HashtagDTO {
 	private Long id;
 
-	private String reply;
-	private MemberDTO replier;
-
-	private Long postId;
-
-	// @JsonBackReference
-	// private PostDTO post;
+	@NotBlank
+	private String tag;
 }

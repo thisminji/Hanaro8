@@ -29,15 +29,8 @@ spring:
 
   sql:
     init:
-      mode: never
+      mode: always
 
   web:
     resources:
       add-mappings: false
-
-#  devtools:
-#    livereload:
-#      enabled: true
-#    restart:
-#      enabled: true
-#      additional-paths: src/main/java
