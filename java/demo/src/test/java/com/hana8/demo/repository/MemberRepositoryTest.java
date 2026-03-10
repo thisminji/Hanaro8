@@ -53,7 +53,6 @@ class MemberRepositoryTest extends BaseRepositoryTest {
 	@Order(2)
 	void readTest() {
 		List<Member> all = repository.findAll();
-		System.out.println("all = " + all);
 		long cnt = repository.count();
 		assertThat(cnt).isEqualTo(all.size());
 
@@ -84,8 +83,7 @@ class MemberRepositoryTest extends BaseRepositoryTest {
 	@Test
 	@Order(5)
 	void finalCheck() {
-		assertThat(repository.count()).isEqualTo(0L); // 1L에서 0L로 수정
-		// assertThat(repository.count()).isEqualTo(orgCount);
+		assertThat(repository.count()).isEqualTo(orgCount);
 	}
 
 }
