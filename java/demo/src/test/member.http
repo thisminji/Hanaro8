@@ -61,14 +61,15 @@ Content-Type: application/json
 DELETE {{baseUrl}}/5
 
 ### 파일 업로드 http
-POST {{baseUrl}}/files/upload
+#POST {{baseUrl}}/files/upload
+POST {{baseUrl}}/files/secure/upload
 Content-Type: multipart/form-data; boundary=boundary
 
 --boundary
-Content-Disposition: form-data; name="file"; filename="test.jpeg"
+Content-Disposition: form-data; name="file"; filename="test1.jpg"
 Content-Type: image/jpeg
 
-< /Users/minji/test.jpeg
+< /Users/minji/tmp/test1.jpg
 --boundary–
 
 ### 다중 파일 업로드
@@ -76,16 +77,19 @@ POST {{baseUrl}}/files/upload/multiple
 Content-Type: multipart/form-data; boundary=boundary
 
 --boundary
-Content-Disposition: form-data; name="files"; filename="test1.jpeg"
+Content-Disposition: form-data; name="files"; filename="test1.jpg"
 Content-Type: image/jpeg
 
-< /Users/minji/test1.jpeg
+< /Users/minji/tmp/test1.jpg
 --boundary
 Content-Disposition: form-data; name="files"; filename="test2.png"
 Content-Type: image/png
 
-< /Users/minji/test2.png
+< /Users/minji/tmp/test2.png
 --boundary--
 
 ### 파일 다운로드
-GET {{baseUrl}}/files/download/test.jpg
+GET {{baseUrl}}/files/download/70d31264-fd00-48df-9c8c-cc09b903b4c4.png
+
+### 파일 다운로드 (secure)
+GET {{baseUrl}}/files/download/thumb_70d31264-fd00-48df-9c8c-cc09b903b4c4.png?isSecure=true
