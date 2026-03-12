@@ -49,6 +49,8 @@ public class MemberDTO {
 	private Long replyCount;
 
 	@Builder.Default
+	private List<MemberImageDTO> images = new ArrayList<>();
+	@Builder.Default
 	private List<DeptDTO> captainDepts = new ArrayList<>();
 	@Builder.Default
 	private List<DeptDTO> depts = new ArrayList<>();
