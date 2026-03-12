@@ -103,8 +103,12 @@ public class FileService {
 	}
 
 	public void delete(String filename) {
+		delete(filename, "");
+	}
+
+	public void delete(String filename, String saveDir) {
 		// /upload/../../../../usr/local/ls ==> normalize ⇒ /usr/local/ls
-		Path filePath = Paths.get(uploadPath, filename).normalize();
+		Path filePath = Paths.get(uploadPath, saveDir, filename).normalize();
 
 		if (!Files.exists(filePath))
 			throw new NoSuchElementException("파일을 찾을 수 없습니다: " + filename);
@@ -117,7 +121,7 @@ public class FileService {
 			Files.delete(filePath);
 
 			// 썸네일도 삭제
-			Path thumbPath = Paths.get(uploadPath, "thumb_" + filename);
+			Path thumbPath = Paths.get(uploadPath, saveDir, "thumb_" + filename);
 			if (Files.exists(thumbPath))
 				Files.delete(thumbPath);
 

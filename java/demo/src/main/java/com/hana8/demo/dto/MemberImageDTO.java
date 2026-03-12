@@ -22,8 +22,6 @@ public class MemberImageDTO {
 	private String savedir;
 	private String remark;
 
-	private MemberDTO captain;
-
 	@Builder.Default
 	private List<MemberDTO> deptMembers = new ArrayList<>();
 

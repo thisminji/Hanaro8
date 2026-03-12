@@ -69,7 +69,7 @@ Content-Type: multipart/form-data; boundary=boundary
 Content-Disposition: form-data; name="file"; filename="test1.jpg"
 Content-Type: image/jpeg
 
-< /Users/minji/tmp/test1.jpg
+< /Users/jade/tmp/test1.jpg
 --boundary–
 
 ### 다중 파일 업로드
@@ -80,16 +80,48 @@ Content-Type: multipart/form-data; boundary=boundary
 Content-Disposition: form-data; name="files"; filename="test1.jpg"
 Content-Type: image/jpeg
 
-< /Users/minji/tmp/test1.jpg
+< /Users/jade/tmp/test1.jpg
 --boundary
 Content-Disposition: form-data; name="files"; filename="test2.png"
 Content-Type: image/png
 
-< /Users/minji/tmp/test2.png
+< /Users/jade/tmp/test2.png
 --boundary--
 
 ### 파일 다운로드
-GET {{baseUrl}}/files/download/70d31264-fd00-48df-9c8c-cc09b903b4c4.png
+GET {{baseUrl}}/files/download/e54a267e-e851-452f-96d1-c073283441ee.jpg
 
 ### 파일 다운로드 (secure)
-GET {{baseUrl}}/files/download/thumb_70d31264-fd00-48df-9c8c-cc09b903b4c4.png?isSecure=true
+GET {{baseUrl}}/files/download/thumb_91fa196b-b151-4087-8a6a-48b55bb3a406.jpg?isSecure=true
+
+
+### 파일 삭제
+DELETE {{baseUrl}}/files/delete/e54a267e-e851-452f-96d1-c073283441ee.jpg
+
+### Member Image 저장
+POST {{baseUrl}}/2/images
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="files"; filename="test1.jpg"
+Content-Type: image/jpeg
+
+< /Users/jade/tmp/test1.jpg
+--boundary
+Content-Disposition: form-data; name="remarks"
+
+첫번째 파일 설명
+--boundary
+Content-Disposition: form-data; name="files"; filename="test2.png"
+Content-Type: image/png
+
+< /Users/jade/tmp/test2.png
+--boundary--
+Content-Disposition: form-data; name="remarks"
+
+두번째 파일 설명
+--boundary--
+
+
+### delete Image
+DELETE {{baseUrl}}/1/images/2
